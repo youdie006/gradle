@@ -367,7 +367,7 @@ public class StartParameterBuildOptions extends BuildOptionSet<StartParameterInt
 
         @Override
         public void applyTo(boolean value, StartParameterInternal settings, Origin origin) {
-            settings.setBuildCacheEnabled(value);
+            settings.setBuildCacheEnabledInternal(value, false);
         }
 
         @Override
