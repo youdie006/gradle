@@ -16,6 +16,28 @@ import java.util.Properties
  * limitations under the License.
  */
 
+/**
+ * The Groovy major version bundled by Gradle, overridable via `-DbundleGroovyMajor` for
+ * Gradleception coverage builds.
+ *
+ * Default should match the Groovy version declared in `gradle/dependency-management/shared-versions.properties`.
+ */
+val bundleGroovyMajor = providers.systemProperty("bundleGroovyMajor").map(String::toInt).getOrElse(4)
+
+/**
+ * Version-catalog aliases that must change together when bundling a non-default Groovy major.
+ * CodeNarc is intentionally excluded: it has no Groovy 5 build, and its analysis runtime is
+ * independent of the Groovy version bundled into the distribution.
+ */
+val groovyMajorOverrides: Map<String, String> = when (bundleGroovyMajor) {
+    4 -> emptyMap()
+    5 -> mapOf(
+        "groovy" to "5.0.0!!",
+        "spock" to "2.4-groovy-5.0!!",
+    )
+    else -> error("Unsupported bundled Groovy major version: $bundleGroovyMajor")
+}
+
 dependencyResolutionManagement {
     val root = if (rootProject.name.startsWith("build-logic")) {
         layout.rootDirectory.dir("..")
@@ -40,6 +62,10 @@ dependencyResolutionManagement {
             Properties().apply { load(it) }
         }
         all {
+            // version() is first-wins, so by applying the Groovy major overrides first, we ensure that they take precedence over the shared versions.
+            groovyMajorOverrides.forEach { (alias, version) ->
+                version(alias, version)
+            }
             sharedVersions.forEach { key, value ->
                 version(key.toString(), value.toString())
             }
