@@ -44,6 +44,7 @@ import static org.gradle.internal.UncheckedException.uncheckedCall;
  * A digital signature file artifact.
  *
  * <p>A signature file is always generated from another file, which may be a {@link PublishArtifact}.</p>
+ * @since 1.0
  */
 public class Signature extends AbstractPublishArtifact {
 
@@ -108,6 +109,7 @@ public class Signature extends AbstractPublishArtifact {
      * @param toSign The artifact that is to be signed
      * @param signatureSpec The specification of how the artifact is to be signed
      * @param tasks The task(s) that will invoke {@link #generate()} on this signature (optional)
+     * @since 1.0
      */
     public Signature(final PublishArtifact toSign, SignatureSpec signatureSpec, Object... tasks) {
         this(toSign, toSign::getFile, toSign::getClassifier, toSign::getName, signatureSpec, tasks);
@@ -126,6 +128,7 @@ public class Signature extends AbstractPublishArtifact {
      * @param toSign The file that is to be signed
      * @param signatureSpec The specification of how the artifact is to be signed
      * @param tasks The task(s) that will invoke {@link #generate()} on this signature (optional)
+     * @since 1.0
      */
     public Signature(final File toSign, SignatureSpec signatureSpec, Object... tasks) {
         // TODO: find a way to inject a proper task dependency factory without breaking the public API
@@ -140,6 +143,7 @@ public class Signature extends AbstractPublishArtifact {
      * @param classifier The classifier to assign to the signature (should match the files)
      * @param signatureSpec The specification of how the artifact is to be signed
      * @param tasks The task(s) that will invoke {@link #generate()} on this signature (optional)
+     * @since 1.0
      */
     public Signature(final File toSign, final String classifier, SignatureSpec signatureSpec, Object... tasks) {
         // TODO: find a way to inject a proper task dependency factory without breaking the public API
@@ -156,6 +160,7 @@ public class Signature extends AbstractPublishArtifact {
      * @param classifier A closure that produces the classifier to assign to the signature artifact on demand
      * @param signatureSpec The specification of how the artifact is to be signed
      * @param tasks The task(s) that will invoke {@link #generate()} on this signature (optional)
+     * @since 1.0
      */
     public Signature(Closure<File> toSign, Closure<String> classifier, SignatureSpec signatureSpec, Object... tasks) {
         // TODO: find a way to inject a proper task dependency factory without breaking the public API
@@ -174,6 +179,7 @@ public class Signature extends AbstractPublishArtifact {
      * @param classifier A closure that produces the classifier to assign to the signature artifact on demand
      * @param signatureSpec The specification of how the artifact is to be signed
      * @param tasks The task(s) that will invoke {@link #generate()} on this signature (optional)
+     * @since 3.0
      */
     public Signature(Callable<File> toSign, Callable<String> classifier, SignatureSpec signatureSpec, Object... tasks) {
         // TODO: find a way to inject a proper task dependency factory without breaking the public API
@@ -192,6 +198,7 @@ public class Signature extends AbstractPublishArtifact {
      * The file that is to be signed.
      *
      * @return The file. May be {@code null} if unknown at this time.
+     * @since 1.0
      */
     @PathSensitive(PathSensitivity.NONE)
     @InputFile
@@ -200,6 +207,11 @@ public class Signature extends AbstractPublishArtifact {
         return uncheckedCall(toSignGenerator);
     }
 
+    /**
+     * Sets the name.
+     *
+     * @since 1.0
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -231,6 +243,11 @@ public class Signature extends AbstractPublishArtifact {
         return file != null ? file.getName() : null;
     }
 
+    /**
+     * Sets the extension.
+     *
+     * @since 1.0
+     */
     public void setExtension(String extension) {
         this.extension = extension;
     }
@@ -257,6 +274,11 @@ public class Signature extends AbstractPublishArtifact {
         return signatureType != null ? signatureType.getExtension() : null;
     }
 
+    /**
+     * Sets the type.
+     *
+     * @since 1.0
+     */
     public void setType(String type) {
         this.type = type;
     }
@@ -287,6 +309,11 @@ public class Signature extends AbstractPublishArtifact {
             : null;
     }
 
+    /**
+     * Sets the classifier.
+     *
+     * @since 1.0
+     */
     public void setClassifier(String classifier) {
         this.classifier = classifier;
     }
@@ -309,6 +336,11 @@ public class Signature extends AbstractPublishArtifact {
         return classifierGenerator == null ? null : uncheckedCall(classifierGenerator);
     }
 
+    /**
+     * Sets the date.
+     *
+     * @since 1.0
+     */
     public void setDate(Date date) {
         this.date = date;
     }
@@ -367,6 +399,7 @@ public class Signature extends AbstractPublishArtifact {
      * The signatory of this signature file.
      *
      * @return The signatory. May be {@code null} if unknown at this time.
+     * @since 1.0
      */
     @Internal("already tracked as part of the Sign task")
     @ToBeReplacedByLazyProperty
@@ -378,6 +411,7 @@ public class Signature extends AbstractPublishArtifact {
      * The file representation type of the signature.
      *
      * @return The signature type. May be {@code null} if unknown at this time.
+     * @since 1.0
      */
     @Internal("already tracked as part of the Sign task")
     @ToBeReplacedByLazyProperty
@@ -385,11 +419,21 @@ public class Signature extends AbstractPublishArtifact {
         return signatureSpec.getSignatureType();
     }
 
+    /**
+     * Sets the signature spec.
+     *
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public void setSignatureSpec(SignatureSpec signatureSpec) {
         this.signatureSpec = signatureSpec;
     }
 
+    /**
+     * Returns the signature spec.
+     *
+     * @since 1.0
+     */
     @Internal
     @SuppressWarnings("unused")
     @ToBeReplacedByLazyProperty
@@ -420,6 +464,7 @@ public class Signature extends AbstractPublishArtifact {
      * {@link #getSignatureType() signature type} must be known (i.e. non {@code null}).</p>
      *
      * @throws InvalidUserDataException if the there is insufficient information available to generate the signature.
+     * @since 1.0
      */
     public void generate() {
         Generator generator = getGenerator();
@@ -473,23 +518,43 @@ public class Signature extends AbstractPublishArtifact {
         private final Signatory signatory;
         private final File toSign;
 
+        /**
+         * Creates a new {@code Generator}.
+         *
+         * @since 8.1
+         */
         public Generator(SignatureType signatureType, Signatory signatory, File toSign) {
             this.signatureType = signatureType;
             this.signatory = signatory;
             this.toSign = toSign;
         }
 
+        /**
+         * Returns the to sign.
+         *
+         * @since 8.1
+         */
         @PathSensitive(PathSensitivity.NONE)
         @InputFile
         public File getToSign() {
             return toSign;
         }
 
+        /**
+         * Returns the file.
+         *
+         * @since 8.1
+         */
         @OutputFile
         public File getFile() {
             return signatureType.fileFor(toSign);
         }
 
+        /**
+         * Generate.
+         *
+         * @since 8.1
+         */
         public void generate() {
             signatureType.sign(signatory, toSign);
         }

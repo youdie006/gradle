@@ -62,6 +62,7 @@ import javax.inject.Inject;
  *   }
  * }
  * </pre>
+ * @since 1.0
  */
 public abstract class EclipseJdt {
 
@@ -84,6 +85,7 @@ public abstract class EclipseJdt {
      * The source Java language level.
      * <p>
      * For example see docs for {@link EclipseJdt}
+     * @since 1.0
      */
     public JavaVersion getSourceCompatibility() {
         return sourceCompatibility;
@@ -98,6 +100,11 @@ public abstract class EclipseJdt {
         setSourceCompatibility((Object) sourceCompatibility);
     }
 
+    /**
+     * Sets the source compatibility.
+     *
+     * @since 1.0
+     */
     public void setSourceCompatibility(Object sourceCompatibility) {
         JavaVersion version = JavaVersion.toVersion(sourceCompatibility);
         if (version != null) {
@@ -109,6 +116,7 @@ public abstract class EclipseJdt {
      * The target JVM to generate {@code .class} files for.
      * <p>
      * For example see docs for {@link EclipseJdt}
+     * @since 1.0
      */
     public JavaVersion getTargetCompatibility() {
         return targetCompatibility;
@@ -123,6 +131,11 @@ public abstract class EclipseJdt {
         setTargetCompatibility((Object) targetCompatibility);
     }
 
+    /**
+     * Sets the target compatibility.
+     *
+     * @since 1.0
+     */
     public void setTargetCompatibility(Object targetCompatibility) {
         JavaVersion version = JavaVersion.toVersion(targetCompatibility);
         if (version != null) {
@@ -136,6 +149,7 @@ public abstract class EclipseJdt {
      * For example see docs for {@link EclipseJdt}
      *
      * @deprecated Will be removed in Gradle 10.
+     * @since 2.11
      */
     @Deprecated
     public String getJavaRuntimeName() {
@@ -147,6 +161,7 @@ public abstract class EclipseJdt {
      * Set Java Runtime name.
      *
      * @deprecated Will be removed in Gradle 10.
+     * @since 2.11
      */
     @Deprecated
     public void setJavaRuntimeName(String javaRuntimeName) {
@@ -161,6 +176,7 @@ public abstract class EclipseJdt {
      * See {@link #file(Action) }
      *
      * @deprecated Will be removed in Gradle 10.
+     * @since 1.0
      */
     @Deprecated
     public PropertiesFileContentMerger getFile() {
@@ -178,6 +194,7 @@ public abstract class EclipseJdt {
      * For example see docs for {@link EclipseJdt}
      *
      * @deprecated Will be removed in Gradle 10.
+     * @since 1.0
      */
     @Deprecated
     public void file(@DelegatesTo(PropertiesFileContentMerger.class) Closure closure) {

@@ -30,6 +30,9 @@ import kotlin.script.experimental.api.filePathPattern
 import kotlin.script.experimental.api.implicitReceivers
 
 
+/**
+ * @since 8.11
+ */
 class KotlinSettingsScriptTemplateCompilationConfiguration : KotlinDslStandaloneScriptCompilationConfiguration({
     filePathPattern.put(".*/(?:.+\\.)?settings\\.gradle\\.kts")
     baseClass(KotlinSettingsScriptTemplate::class)
@@ -57,6 +60,8 @@ abstract class KotlinSettingsScriptTemplate(
 
     /**
      * The [ScriptHandler] for this script.
+     *
+     * @since 8.1
      */
     fun getBuildscript(): ScriptHandler =
         host.scriptHandler

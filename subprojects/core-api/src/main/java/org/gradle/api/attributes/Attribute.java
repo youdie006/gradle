@@ -42,6 +42,7 @@ public class Attribute<T> implements Named {
      * @param type the class of the attribute
      * @param <T> the type of the attribute
      * @return an attribute with the given name and type
+     * @since 3.3
      */
     public static <T> Attribute<T> of(String name, Class<T> type) {
         return new Attribute<T>(name, type);
@@ -57,6 +58,7 @@ public class Attribute<T> implements Named {
      * @param type the class of the attribute
      * @param <T> the type of the attribute
      * @return an attribute with the given name and type
+     * @since 3.3
      */
     public static <T> Attribute<T> of(Class<T> type) {
         @SuppressWarnings("deprecation")
@@ -84,6 +86,7 @@ public class Attribute<T> implements Named {
     /**
      * Returns the type of this attribute.
      * @return the type of this attribute.
+     * @since 3.3
      */
     public Class<T> getType() {
         return type;

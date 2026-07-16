@@ -60,11 +60,13 @@ import static org.codehaus.groovy.runtime.typehandling.DefaultTypeTransformation
 
 /**
  * The global signing configuration for a project.
+ * @since 1.0
  */
 public abstract class SigningExtension {
 
     /**
      * The name of the configuration that all signature artifacts will be placed into ("signatures")
+     * @since 2.14
      */
     public static final String DEFAULT_CONFIGURATION_NAME = "signatures";
 
@@ -94,6 +96,7 @@ public abstract class SigningExtension {
 
     /**
      * Configures the signing settings for the given project.
+     * @since 1.0
      */
     @SuppressWarnings("this-escape")
     public SigningExtension(Project project) {
@@ -104,6 +107,11 @@ public abstract class SigningExtension {
         project.getTasks().withType(Sign.class, this::addSignatureSpecConventions);
     }
 
+    /**
+     * Returns the project.
+     *
+     * @since 1.0
+     */
     public final Project getProject() {
         return project;
     }
@@ -138,6 +146,7 @@ public abstract class SigningExtension {
      *   required = false
      * }
      * </pre>
+     * @since 1.0
      */
     public void setRequired(Object required) {
         this.required = required;
@@ -149,6 +158,7 @@ public abstract class SigningExtension {
      * <p>Defaults to {@code true}.</p>
      *
      * @see #setRequired(Object)
+     * @since 1.0
      */
     @ToBeReplacedByLazyProperty
     public boolean isRequired() {
@@ -157,6 +167,7 @@ public abstract class SigningExtension {
 
     /**
      * Provides the configuration that signature artifacts are added to. Called once during construction.
+     * @since 1.0
      */
     protected Configuration getDefaultConfiguration() {
         final RoleBasedConfigurationContainerInternal configurations = ((ProjectInternal) project).getConfigurations();
@@ -168,6 +179,7 @@ public abstract class SigningExtension {
 
     /**
      * Provides the signature type provider. Called once during construction.
+     * @since 1.0
      */
     protected SignatureTypeProvider createSignatureTypeProvider() {
         return new DefaultSignatureTypeProvider();
@@ -175,6 +187,7 @@ public abstract class SigningExtension {
 
     /**
      * Provides the signatory provider. Called once during construction.
+     * @since 1.0
      */
     protected SignatoryProvider<?> createSignatoryProvider() {
         return new PgpSignatoryProvider();
@@ -185,6 +198,7 @@ public abstract class SigningExtension {
      *
      * @param closure the signatory provider configuration DSL
      * @return the configured signatory provider
+     * @since 1.0
      */
     @SuppressWarnings("unused")
     public SignatoryProvider<?> signatories(Closure<?> closure) {
@@ -207,6 +221,7 @@ public abstract class SigningExtension {
      * The signatory that will be used for signing when an explicit signatory has not been specified.
      *
      * <p>Delegates to the signatory provider's default signatory.</p>
+     * @since 1.0
      */
     @ToBeReplacedByLazyProperty
     public Signatory getSignatory() {
@@ -217,27 +232,48 @@ public abstract class SigningExtension {
      * The signature type that will be used for signing files when an explicit signature type has not been specified.
      *
      * <p>Delegates to the signature type provider's default type.</p>
+     * @since 1.0
      */
     @ToBeReplacedByLazyProperty
     public SignatureType getSignatureType() {
         return signatureTypes.getDefaultType();
     }
 
+    /**
+     * Sets the signature types.
+     *
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     public void setSignatureTypes(SignatureTypeProvider signatureTypes) {
         this.signatureTypes = signatureTypes;
     }
 
+    /**
+     * Returns the signature types.
+     *
+     * @since 1.0
+     */
     @SuppressWarnings("unused")
     @ToBeReplacedByLazyProperty
     public SignatureTypeProvider getSignatureTypes() {
         return signatureTypes;
     }
 
+    /**
+     * Sets the signatories.
+     *
+     * @since 1.0
+     */
     public void setSignatories(SignatoryProvider<?> signatories) {
         this.signatories = signatories;
     }
 
+    /**
+     * Sets the configuration.
+     *
+     * @since 1.0
+     */
     public void setConfiguration(Configuration configuration) {
         this.configuration = configuration;
     }
@@ -294,6 +330,7 @@ public abstract class SigningExtension {
 
     /**
      * The configuration that signature artifacts are added to.
+     * @since 1.0
      */
     @ToBeReplacedByLazyProperty
     public Configuration getConfiguration() {
@@ -302,6 +339,7 @@ public abstract class SigningExtension {
 
     /**
      * Adds conventions to the given spec, using this settings object's default signatory and signature type as the default signatory and signature type for the spec.
+     * @since 1.0
      */
     protected void addSignatureSpecConventions(SignatureSpec spec) {
         if (!(spec instanceof IConventionAware)) {
@@ -323,6 +361,7 @@ public abstract class SigningExtension {
      *
      * @param tasks The tasks whose archives are to be signed
      * @return the created tasks.
+     * @since 1.0
      */
     public List<Sign> sign(Task... tasks) {
         final List<Sign> result = new ArrayList<>(tasks.length);
@@ -346,6 +385,7 @@ public abstract class SigningExtension {
      *
      * @param configurations The configurations whose archives are to be signed
      * @return the created tasks.
+     * @since 1.0
      */
     public List<Sign> sign(Configuration... configurations) {
         final List<Sign> result = new ArrayList<>(configurations.length);
@@ -445,6 +485,11 @@ public abstract class SigningExtension {
         return signTask;
     }
 
+    /**
+     * Add signatures to configuration.
+     *
+     * @since 1.0
+     */
     protected Object addSignaturesToConfiguration(Sign task, final Configuration configuration) {
         task.getSignatures().all(sig -> configuration.getArtifacts().add(sig));
         return task.getSignatures().whenObjectRemoved(sig -> configuration.getArtifacts().remove(sig));
@@ -459,6 +504,7 @@ public abstract class SigningExtension {
      *
      * @param publishArtifacts The publish artifacts to sign
      * @return The executed {@link SignOperation sign operation}
+     * @since 1.0
      */
     public SignOperation sign(final PublishArtifact... publishArtifacts) {
         return doSignOperation(operation -> operation.sign(publishArtifacts));
@@ -473,6 +519,7 @@ public abstract class SigningExtension {
      *
      * @param files The files to sign.
      * @return The executed {@link SignOperation sign operation}.
+     * @since 1.0
      */
     public SignOperation sign(final File... files) {
         return doSignOperation(operation -> operation.sign(files));
@@ -489,6 +536,7 @@ public abstract class SigningExtension {
      * @param classifier The classifier to assign to the created signature artifacts.
      * @param files The publish artifacts to sign.
      * @return The executed {@link SignOperation sign operation}.
+     * @since 1.0
      */
     public SignOperation sign(final String classifier, final File... files) {
         return doSignOperation(operation -> operation.sign(classifier, files));
@@ -504,6 +552,7 @@ public abstract class SigningExtension {
      *
      * @param closure The configuration of the {@link SignOperation sign operation}.
      * @return The executed {@link SignOperation sign operation}.
+     * @since 1.0
      */
     public SignOperation sign(@DelegatesTo(SignOperation.class) Closure<?> closure) {
         return doSignOperation(closure);
@@ -526,10 +575,20 @@ public abstract class SigningExtension {
         return doSignOperation(setup);
     }
 
+    /**
+     * Do sign operation.
+     *
+     * @since 1.0
+     */
     protected SignOperation doSignOperation(@DelegatesTo(SignOperation.class) final Closure<?> setup) {
         return doSignOperation(operation -> operation.configure(setup));
     }
 
+    /**
+     * Do sign operation.
+     *
+     * @since 2.14
+     */
     protected SignOperation doSignOperation(Action<SignOperation> setup) {
         final SignOperation operation = objectFactory().newInstance(SignOperationInternal.class);
         addSignatureSpecConventions(operation);
@@ -542,6 +601,11 @@ public abstract class SigningExtension {
         return project.getObjects();
     }
 
+    /**
+     * Returns the signatories.
+     *
+     * @since 1.0
+     */
     @ToBeReplacedByLazyProperty
     public SignatoryProvider<?> getSignatories() {
         return signatories;
