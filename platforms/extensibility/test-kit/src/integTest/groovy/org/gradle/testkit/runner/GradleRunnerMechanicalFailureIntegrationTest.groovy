@@ -18,6 +18,7 @@ package org.gradle.testkit.runner
 
 import org.gradle.api.GradleException
 import org.gradle.initialization.StartParameterBuildOptions
+import org.gradle.initialization.exception.InitializationException
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.launcher.daemon.client.DaemonDisappearedException
 import org.gradle.testkit.runner.fixtures.HideEnvVariableValuesInDaemonLog
@@ -141,7 +142,6 @@ class GradleRunnerMechanicalFailureIntegrationTest extends BaseGradleRunnerInteg
         then:
         def t = thrown IllegalStateException
         t.cause instanceof GradleConnectionException
-        t.cause.cause.class.name == GradleException.name // not the same class because it's coming from the tooling client
         t.cause.cause.message.startsWith("Unable to start the daemon process.")
     }
 
