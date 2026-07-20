@@ -143,25 +143,4 @@ internal class KotlinDslIncrementalCompilationCache(
 
     private fun dirNameFor(scriptIdentity: String): String =
         Hashing.hashString(scriptIdentity).toString()
-
-    /**
-     * Whether incremental compilation is worth configuring for [scriptIdentity]. IC only pays off
-     * once a prior compile has left state to build on, so successive compiles of a script progress
-     * through three passes:
-     *  1. cold — nothing cached yet → skip IC; full compile.
-     *  2. bootstrap — prior outputs only → run IC; full compile that records IC state.
-     *  3. incremental — IC working state exists → run IC; recompile only what changed.
-     *
-     * Only the cold pass skips IC: it would rebuild everything anyway, so attaching IC there just
-     * pays for snapshotting and bookkeeping that buys nothing.
-     */
-    fun shouldConfigureIncrementalCompilation(scriptIdentity: String): Boolean {
-        val entry = scriptEntry(scriptIdentity)
-        val hasIncrementalState = hasPriorState(entry.resolve("ic-state")) // pass 3: incremental
-        val hasPriorOutputs = hasPriorState(entry.resolve("outputs"))      // pass 2: bootstrap
-        return hasIncrementalState || hasPriorOutputs                               // neither → pass 1: cold (skip IC)
-    }
-
-    private fun hasPriorState(dir: Path): Boolean =
-        Files.isDirectory(dir) && Files.newDirectoryStream(dir).use { it.iterator().hasNext() }
 }

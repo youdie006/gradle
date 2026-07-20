@@ -573,16 +573,12 @@ private class BTACompiler(val moduleRegistry: ModuleRegistry, classLoader: Class
         }
 
         incrementalCompilationCache.markCompilationStarted(scriptIdentity)
-        if (incrementalCompilationCache.shouldConfigureIncrementalCompilation(scriptIdentity)) {
-            try {
-                runCompilation(incremental = true)
-            } catch (e: Exception) {
-                logger.info("Incremental compilation of '{}' failed; falling back to a full compile.", scriptIdentity, e)
-                messageRenderer.errors.clear()
-                incrementalCompilationCache.discardIncrementalState(scriptIdentity)
-                runCompilation(incremental = false)
-            }
-        } else {
+        try {
+            runCompilation(incremental = true)
+        } catch (e: Exception) {
+            logger.info("Incremental compilation of '{}' failed; falling back to a full compile.", scriptIdentity, e)
+            messageRenderer.errors.clear()
+            incrementalCompilationCache.discardIncrementalState(scriptIdentity)
             runCompilation(incremental = false)
         }
         incrementalCompilationCache.markCompilationComplete(scriptIdentity)
