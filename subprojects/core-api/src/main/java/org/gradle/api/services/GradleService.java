@@ -28,5 +28,5 @@ import org.gradle.api.Incubating;
  * @since 9.8.0
  */
 @Incubating
-public interface GradleInjectable {
+public interface GradleService {
 }

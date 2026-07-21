@@ -20,10 +20,10 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
-import org.gradle.api.services.GradleInjectable
-import org.gradle.api.services.ProjectInjectable
-import org.gradle.api.services.SettingsInjectable
-import org.gradle.api.services.TaskInjectable
+import org.gradle.api.services.GradleService
+import org.gradle.api.services.ProjectService
+import org.gradle.api.services.SettingsService
+import org.gradle.api.services.TaskService
 import spock.lang.Specification
 
 /**
@@ -35,10 +35,10 @@ class PublicServiceLookupMarkerConsistencyTest extends Specification {
 
     // entry point -> [host interface declaring service(Class), scope marker]
     private static final Map<PublicServiceLookups.EntryPoint, List<Class<?>>> SCOPES = [
-        (PublicServiceLookups.EntryPoint.PROJECT) : [Project, ProjectInjectable],
-        (PublicServiceLookups.EntryPoint.TASK)    : [Task, TaskInjectable],
-        (PublicServiceLookups.EntryPoint.SETTINGS): [Settings, SettingsInjectable],
-        (PublicServiceLookups.EntryPoint.GRADLE)  : [Gradle, GradleInjectable],
+        (PublicServiceLookups.EntryPoint.PROJECT) : [Project, ProjectService],
+        (PublicServiceLookups.EntryPoint.TASK)    : [Task, TaskService],
+        (PublicServiceLookups.EntryPoint.SETTINGS): [Settings, SettingsService],
+        (PublicServiceLookups.EntryPoint.GRADLE)  : [Gradle, GradleService],
     ]
 
     def "every allowlisted service implements the marker for each scope it is available in"() {

@@ -19,8 +19,8 @@ package org.gradle.api.services;
 import org.gradle.api.Incubating;
 
 /**
- * Marks a Gradle service that can be looked up from a task via
- * {@link org.gradle.api.Task#service(Class)}, including from task actions at execution time.
+ * Marks a Gradle service that can be looked up from the settings scope via
+ * {@link org.gradle.api.initialization.Settings#service(Class)}.
  *
  * <p>This is a marker interface with no members. It exists so the service lookup can reject
  * unavailable types at compile time; it is not meant to be implemented by user code.</p>
@@ -28,5 +28,5 @@ import org.gradle.api.Incubating;
  * @since 9.8.0
  */
 @Incubating
-public interface TaskInjectable {
+public interface SettingsService {
 }

@@ -5,10 +5,10 @@
             "member": "Class org.gradle.api.file.ArchiveOperations",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.GradleInjectable",
-                "org.gradle.api.services.ProjectInjectable",
-                "org.gradle.api.services.SettingsInjectable",
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.GradleService",
+                "org.gradle.api.services.ProjectService",
+                "org.gradle.api.services.SettingsService",
+                "org.gradle.api.services.TaskService"
             ]
         },
         {
@@ -16,10 +16,10 @@
             "member": "Class org.gradle.api.file.FileSystemOperations",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.GradleInjectable",
-                "org.gradle.api.services.ProjectInjectable",
-                "org.gradle.api.services.SettingsInjectable",
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.GradleService",
+                "org.gradle.api.services.ProjectService",
+                "org.gradle.api.services.SettingsService",
+                "org.gradle.api.services.TaskService"
             ]
         },
         {
@@ -27,8 +27,8 @@
             "member": "Class org.gradle.api.file.ProjectLayout",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.ProjectInjectable",
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.ProjectService",
+                "org.gradle.api.services.TaskService"
             ]
         },
         {
@@ -36,10 +36,10 @@
             "member": "Class org.gradle.api.model.ObjectFactory",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.GradleInjectable",
-                "org.gradle.api.services.ProjectInjectable",
-                "org.gradle.api.services.SettingsInjectable",
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.GradleService",
+                "org.gradle.api.services.ProjectService",
+                "org.gradle.api.services.SettingsService",
+                "org.gradle.api.services.TaskService"
             ]
         },
         {
@@ -47,10 +47,10 @@
             "member": "Class org.gradle.api.provider.ProviderFactory",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.GradleInjectable",
-                "org.gradle.api.services.ProjectInjectable",
-                "org.gradle.api.services.SettingsInjectable",
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.GradleService",
+                "org.gradle.api.services.ProjectService",
+                "org.gradle.api.services.SettingsService",
+                "org.gradle.api.services.TaskService"
             ]
         },
         {
@@ -58,7 +58,7 @@
             "member": "Class org.gradle.process.ExecOperations",
             "acceptation": "Marked as injectable via the incubating service(Class) lookup markers (#13121)",
             "changes": [
-                "org.gradle.api.services.TaskInjectable"
+                "org.gradle.api.services.TaskService"
             ]
         }
     ]

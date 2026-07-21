@@ -36,7 +36,7 @@ import org.gradle.api.internal.project.ProjectIdentity
 import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.api.invocation.Gradle
 import org.gradle.api.invocation.GradleLifecycle
-import org.gradle.api.services.GradleInjectable
+import org.gradle.api.services.GradleService
 import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.plugins.ObjectConfigurationAction
 import org.gradle.api.plugins.PluginContainer
@@ -333,7 +333,7 @@ class CrossProjectConfigurationReportingGradle(
     override fun getProviders(): ProviderFactory =
         delegate.providers
 
-    override fun <T : GradleInjectable> service(serviceType: Class<T>): T =
+    override fun <T : GradleService> service(serviceType: Class<T>): T =
         delegate.service(serviceType)
 
     override fun getIncludedBuilds(): MutableCollection<IncludedBuild> =

@@ -17,10 +17,10 @@ package org.gradle.api.file;
 
 import org.gradle.api.Project;
 import org.gradle.api.resources.ReadableResource;
-import org.gradle.api.services.GradleInjectable;
-import org.gradle.api.services.ProjectInjectable;
-import org.gradle.api.services.SettingsInjectable;
-import org.gradle.api.services.TaskInjectable;
+import org.gradle.api.services.GradleService;
+import org.gradle.api.services.ProjectService;
+import org.gradle.api.services.SettingsService;
+import org.gradle.api.services.TaskService;
 import org.gradle.internal.service.scopes.Scope;
 import org.gradle.internal.service.scopes.ServiceScope;
 
@@ -33,7 +33,7 @@ import org.gradle.internal.service.scopes.ServiceScope;
  * @since 6.6
  */
 @ServiceScope({Scope.Build.class, Scope.Project.class})
-public interface ArchiveOperations extends GradleInjectable, ProjectInjectable, SettingsInjectable, TaskInjectable {
+public interface ArchiveOperations extends GradleService, ProjectService, SettingsService, TaskService {
 
     /**
      * Creates resource that points to a gzip compressed file at the given path.

@@ -234,7 +234,7 @@ class PublicServiceLookupIntegrationTest extends AbstractIntegrationSpec {
 
     def "a user type that implements a scope marker but is not a Gradle service is still rejected at runtime"() {
         buildFile << """
-            abstract class NotAService implements org.gradle.api.services.ProjectInjectable {}
+            abstract class NotAService implements org.gradle.api.services.ProjectService {}
 
             service(NotAService)
         """

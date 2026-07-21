@@ -29,7 +29,7 @@ import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.plugins.PluginAware;
 import org.gradle.api.provider.Provider;
 import org.gradle.api.provider.ProviderFactory;
-import org.gradle.api.services.SettingsInjectable;
+import org.gradle.api.services.SettingsService;
 import org.gradle.api.toolchain.management.ToolchainManagement;
 import org.gradle.caching.configuration.BuildCacheConfiguration;
 import org.gradle.declarative.dsl.model.annotations.Adding;
@@ -330,7 +330,7 @@ public interface Settings extends PluginAware, ExtensionAware {
      */
     @Incubating
     @HiddenInDefinition
-    <T extends SettingsInjectable> T service(Class<T> serviceType);
+    <T extends SettingsService> T service(Class<T> serviceType);
 
     /**
      * Returns the {@link Gradle} instance for the current build.

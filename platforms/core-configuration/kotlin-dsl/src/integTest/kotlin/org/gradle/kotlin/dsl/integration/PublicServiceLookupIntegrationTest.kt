@@ -168,7 +168,7 @@ class PublicServiceLookupIntegrationTest : AbstractKotlinIntegrationTest() {
 
     @Test
     fun `looking up a project-only service from a settings script does not compile`() {
-        // ProjectLayout is not available in the settings scope, so the SettingsInjectable bound
+        // ProjectLayout is not available in the settings scope, so the SettingsService bound
         // rejects it at compile time. The runtime message is covered by the Groovy DSL test.
         withSettings("""
             service<ProjectLayout>()
@@ -177,7 +177,7 @@ class PublicServiceLookupIntegrationTest : AbstractKotlinIntegrationTest() {
 
         buildAndFail("help").apply {
             assertHasErrorOutput("Script compilation error")
-            assertHasErrorOutput("Injectable")
+            assertHasErrorOutput("Service")
         }
     }
 
@@ -193,7 +193,7 @@ class PublicServiceLookupIntegrationTest : AbstractKotlinIntegrationTest() {
 
         buildAndFail("useLayout").apply {
             assertHasErrorOutput("Script compilation error")
-            assertHasErrorOutput("Injectable")
+            assertHasErrorOutput("Service")
         }
     }
 }

@@ -91,10 +91,23 @@ public final class PublicServiceLookups {
         return AVAILABLE_SERVICES;
     }
 
+    /**
+     * Resolves a public service, enforcing the curated allowlist at runtime.
+     *
+     * <p>The marker interfaces ({@code ProjectService}, {@code TaskService}, etc.) are only a compile-time
+     * convenience, not a trust boundary: they are unsealed, so third-party code can implement one to satisfy
+     * the bound, and Groovy/reflective calls skip it entirely. This method matches {@code serviceType} by
+     * <strong>exact identity</strong> against {@link #AVAILABLE_SERVICES} (never {@code instanceof}) and only
+     * then queries the {@link ServiceRegistry}. So a caller-supplied type that merely implements a marker is
+     * rejected, and is never resolved or executed through Gradle's DI container.</p>
+     *
+     * @throws InvalidUserDataException if the type is null, not allowlisted, or not available in this scope
+     */
     public static <T> T lookup(@Nullable Class<T> serviceType, EntryPoint entryPoint, ServiceRegistry services) {
         if (serviceType == null) {
             throw new InvalidUserDataException("The service type given to service() must not be null.");
         }
+        // Identity check: a user type that only implements a marker is not a key here, so it never reaches the registry.
         Set<EntryPoint> availableIn = AVAILABLE_SERVICES.get(serviceType);
         if (availableIn == null) {
             throw new InvalidUserDataException(unknownServiceMessage(serviceType, entryPoint));

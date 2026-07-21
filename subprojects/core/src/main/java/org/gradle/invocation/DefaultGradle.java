@@ -48,7 +48,7 @@ import org.gradle.api.invocation.GradleLifecycle;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.ProviderFactory;
 import org.gradle.api.services.BuildServiceRegistry;
-import org.gradle.api.services.GradleInjectable;
+import org.gradle.api.services.GradleService;
 import org.gradle.configuration.ScriptPluginFactory;
 import org.gradle.configuration.internal.ListenerBuildOperationDecorator;
 import org.gradle.execution.taskgraph.TaskExecutionGraphInternal;
@@ -329,7 +329,7 @@ public abstract class DefaultGradle extends AbstractPluginAware implements Gradl
     public abstract ProviderFactory getProviders();
 
     @Override
-    public <T extends GradleInjectable> T service(Class<T> serviceType) {
+    public <T extends GradleService> T service(Class<T> serviceType) {
         return PublicServiceLookups.lookup(serviceType, PublicServiceLookups.EntryPoint.GRADLE, getServices());
     }
 
