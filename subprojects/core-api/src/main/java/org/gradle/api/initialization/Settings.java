@@ -316,7 +316,6 @@ public interface Settings extends PluginAware, ExtensionAware {
      * <li>{@link org.gradle.api.provider.ProviderFactory}</li>
      * <li>{@link org.gradle.api.file.FileSystemOperations}</li>
      * <li>{@link org.gradle.api.file.ArchiveOperations}</li>
-     * <li>{@link org.gradle.process.ExecOperations}</li>
      * <li>{@link BuildLayout}</li>
      * </ul>
      *

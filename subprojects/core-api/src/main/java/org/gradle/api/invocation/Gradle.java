@@ -428,7 +428,6 @@ public interface Gradle extends PluginAware, ExtensionAware {
      * <li>{@link org.gradle.api.provider.ProviderFactory}</li>
      * <li>{@link org.gradle.api.file.FileSystemOperations}</li>
      * <li>{@link org.gradle.api.file.ArchiveOperations}</li>
-     * <li>{@link org.gradle.process.ExecOperations}</li>
      * </ul>
      *
      * <p>This method does not provide access to {@link org.gradle.api.services.BuildService shared build services};
