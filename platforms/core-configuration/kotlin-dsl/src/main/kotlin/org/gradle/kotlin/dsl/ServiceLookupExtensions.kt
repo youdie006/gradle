@@ -23,6 +23,10 @@ import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.initialization.Settings
 import org.gradle.api.invocation.Gradle
+import org.gradle.api.services.GradleInjectable
+import org.gradle.api.services.ProjectInjectable
+import org.gradle.api.services.SettingsInjectable
+import org.gradle.api.services.TaskInjectable
 
 
 /**
@@ -35,7 +39,7 @@ import org.gradle.api.invocation.Gradle
  * @since 9.8.0
  */
 @Incubating
-inline fun <reified T : Any> Project.service(): T =
+inline fun <reified T : ProjectInjectable> Project.service(): T =
     service(T::class.java)
 
 
@@ -62,7 +66,7 @@ inline fun <reified T : Any> Project.service(): T =
  * @since 9.8.0
  */
 @Incubating
-inline fun <reified T : Any> Task.service(): T =
+inline fun <reified T : TaskInjectable> Task.service(): T =
     service(T::class.java)
 
 
@@ -76,7 +80,7 @@ inline fun <reified T : Any> Task.service(): T =
  * @since 9.8.0
  */
 @Incubating
-inline fun <reified T : Any> Settings.service(): T =
+inline fun <reified T : SettingsInjectable> Settings.service(): T =
     service(T::class.java)
 
 
@@ -90,5 +94,5 @@ inline fun <reified T : Any> Settings.service(): T =
  * @since 9.8.0
  */
 @Incubating
-inline fun <reified T : Any> Gradle.service(): T =
+inline fun <reified T : GradleInjectable> Gradle.service(): T =
     service(T::class.java)

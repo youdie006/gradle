@@ -75,12 +75,20 @@ public final class PublicServiceLookups {
         .put(ProviderFactory.class, ALL_ENTRY_POINTS)
         .put(FileSystemOperations.class, ALL_ENTRY_POINTS)
         .put(ArchiveOperations.class, ALL_ENTRY_POINTS)
-        .put(ExecOperations.class, ALL_ENTRY_POINTS)
+        .put(ExecOperations.class, Sets.immutableEnumSet(EntryPoint.TASK))
         .put(ProjectLayout.class, Sets.immutableEnumSet(EntryPoint.PROJECT, EntryPoint.TASK))
         .put(BuildLayout.class, Sets.immutableEnumSet(EntryPoint.SETTINGS))
         .build();
 
     private PublicServiceLookups() {
+    }
+
+    /**
+     * Visible for testing: the authoritative service→scopes allowlist, so the marker/bound consistency
+     * test can assert the compile-time markers and method bounds agree with it.
+     */
+    static ImmutableMap<Class<?>, ImmutableSet<EntryPoint>> availableServices() {
+        return AVAILABLE_SERVICES;
     }
 
     public static <T> T lookup(@Nullable Class<T> serviceType, EntryPoint entryPoint, ServiceRegistry services) {

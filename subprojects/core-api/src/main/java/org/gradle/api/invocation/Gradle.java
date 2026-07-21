@@ -32,6 +32,7 @@ import org.gradle.api.plugins.ExtensionAware;
 import org.gradle.api.plugins.PluginAware;
 import org.gradle.api.provider.ProviderFactory;
 import org.gradle.api.services.BuildServiceRegistry;
+import org.gradle.api.services.GradleInjectable;
 import org.gradle.internal.HasInternalProtocol;
 import org.gradle.internal.accesscontrol.ForExternalUse;
 import org.gradle.internal.service.scopes.Scope;
@@ -440,5 +441,5 @@ public interface Gradle extends PluginAware, ExtensionAware {
      * @since 9.8.0
      */
     @Incubating
-    <T> T service(Class<T> serviceType);
+    <T extends GradleInjectable> T service(Class<T> serviceType);
 }

@@ -24,6 +24,10 @@ import org.gradle.api.credentials.PasswordCredentials;
 import org.gradle.api.file.FileContents;
 import org.gradle.api.file.RegularFile;
 import org.gradle.api.initialization.Settings;
+import org.gradle.api.services.GradleInjectable;
+import org.gradle.api.services.ProjectInjectable;
+import org.gradle.api.services.SettingsInjectable;
+import org.gradle.api.services.TaskInjectable;
 import org.gradle.internal.service.scopes.Scope;
 import org.gradle.internal.service.scopes.ServiceScope;
 import org.gradle.process.ExecOutput;
@@ -45,7 +49,7 @@ import java.util.function.BiFunction;
  */
 @NonExtensible
 @ServiceScope(Scope.Build.class)
-public interface ProviderFactory {
+public interface ProviderFactory extends GradleInjectable, ProjectInjectable, SettingsInjectable, TaskInjectable {
 
     /**
      * Creates a {@link Provider} whose value is calculated using the given {@link Callable}.

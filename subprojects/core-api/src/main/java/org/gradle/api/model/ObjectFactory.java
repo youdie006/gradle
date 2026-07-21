@@ -33,6 +33,10 @@ import org.gradle.api.provider.MapProperty;
 import org.gradle.api.provider.Property;
 import org.gradle.api.provider.SetProperty;
 import org.gradle.api.reflect.ObjectInstantiationException;
+import org.gradle.api.services.GradleInjectable;
+import org.gradle.api.services.ProjectInjectable;
+import org.gradle.api.services.SettingsInjectable;
+import org.gradle.api.services.TaskInjectable;
 import org.gradle.internal.service.scopes.Scope;
 import org.gradle.internal.service.scopes.ServiceScope;
 
@@ -50,7 +54,7 @@ import java.util.Set;
  * @since 4.0
  */
 @ServiceScope({Scope.Global.class, Scope.BuildTree.class, Scope.Project.class})
-public interface ObjectFactory {
+public interface ObjectFactory extends GradleInjectable, ProjectInjectable, SettingsInjectable, TaskInjectable {
     /**
      * Creates a simple immutable {@link Named} object of the given type and name.
      *
